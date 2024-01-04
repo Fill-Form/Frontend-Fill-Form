@@ -42,7 +42,7 @@ function App() {
             font,
             lang,
             labels: {
-              addNewField: 'pdfme!', // Update existing labels
+              addNewField: 'ADD NEW FIELD!', // Update existing labels
               'clear': '🗑️', // Add custom labels to consume them in your own plugins
             },
             theme: {
