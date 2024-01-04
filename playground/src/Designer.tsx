@@ -106,15 +106,26 @@ function App() {
 
   return (
     <div>
-      <header style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginRight: 120, }}>
+      <header
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginRight: 120,
+        }}
+      >
         <strong>Designer</strong>
-        <span style={{ margin: "0 1rem" }}>:</span>
-        <select onChange={(e) => {
-          setLang(e.target.value as Lang)
-          if (designer.current) {
-            designer.current.updateOptions({ lang: e.target.value as Lang })
-          }
-        }} value={lang}>
+
+        <span style={{ margin: '0 1rem' }}>:</span>
+        <select
+          onChange={(e) => {
+            setLang(e.target.value as Lang);
+            if (designer.current) {
+              designer.current.updateOptions({ lang: e.target.value as Lang });
+            }
+          }}
+          value={lang}
+        >
           <option value="en">English</option>
           <option value="ja">Japanese</option>
           <option value="ar">Arabic</option>
@@ -123,24 +134,41 @@ function App() {
           <option value="it">Italian</option>
           <option value="de">German</option>
         </select>
-        <span style={{ margin: "0 1rem" }}>/</span>
+
+        {/* PDF INPUT */}
+        <span style={{ margin: '0 1rem' }}>/</span>
         <label style={{ width: 180 }}>
           Change BasePDF
           <input type="file" accept="application/pdf" onChange={onChangeBasePDF} />
         </label>
-        <span style={{ margin: "0 1rem" }}>/</span>
+
+        <span style={{ margin: '0 1rem' }}>/</span>
         <label style={{ width: 180 }}>
           Load Template
-          <input type="file" accept="application/json" onChange={(e) => handleLoadTemplate(e, designer.current)} />
+          <input
+            type="file"
+            accept="application/json"
+            onChange={(e) => handleLoadTemplate(e, designer.current)}
+          />
         </label>
-        <span style={{ margin: "0 1rem" }}>/</span>
+
+        {/* Download Template */}
+        <span style={{ margin: '0 1rem' }}>/</span>
         <button onClick={onDownloadTemplate}>Download Template</button>
-        <span style={{ margin: "0 1rem" }}>/</span>
+
+        {/* Same Template */}
+        <span style={{ margin: '0 1rem' }}>/</span>
         <button onClick={() => onSaveTemplate()}>Save Template</button>
-        <span style={{ margin: "0 1rem" }}>/</span>
+
+        {/* Reset Template */}
+        <span style={{ margin: '0 1rem' }}>/</span>
         <button onClick={onResetTemplate}>Reset Template</button>
-        <span style={{ margin: "0 1rem" }}>/</span>
+
+        {/* Generate CSV */}
+        <span style={{ margin: '0 1rem' }}>/</span>
         <button onClick={() => generatePDF(designer.current)}>Generate PDF</button>
+
+
       </header>
       <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }} />
     </div>

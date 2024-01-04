@@ -15,7 +15,7 @@ const shape: Plugin<Shape> = {
     const div = document.createElement('div');
     div.style.width = '100%';
     div.style.height = '100%';
-    div.style.boxSizing = 'border-box';
+    div.style.boxSizing = 'border-box'; // border-box -> border in border 
     if (schema.type === 'ellipse') {
       div.style.borderRadius = '50%';
     }
@@ -91,9 +91,12 @@ const shape: Plugin<Shape> = {
       height: 37.5,
       rotate: 0,
       opacity: 1,
-      borderWidth: 5,
+      // extend 
+      borderWidth: 1,
       borderColor: '#000000',
-      color: '#ffffff',
+      color: '#ff000000',
+      // color: 'transparent',
+      // color: '#ffffff',
       readOnly: true,
     },
   },
@@ -105,5 +108,17 @@ const getPropPanelSchema = (type: 'rectangle' | 'ellipse') => ({
 });
 
 export const rectangle = { ...shape, propPanel: getPropPanelSchema('rectangle') };
+
+// export const rectangle = { 
+//   ...shape, 
+//   propPanel: {
+//     ...getPropPanelSchema('rectangle'),
+//     defaultSchema: { 
+//       ...shape.propPanel.defaultSchema, 
+//       type: 'rectangle', 
+//       color: 'rgba(0,0,0,0' // set color to transparent
+//     }
+//   }
+// };
 
 export const ellipse = { ...shape, propPanel: getPropPanelSchema('ellipse') };

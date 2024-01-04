@@ -2,7 +2,7 @@ import type { Schema, Plugin, PDFRenderProps, UIRenderProps } from '@pdfme/commo
 import { rotatePoint, convertForPdfLayoutProps, hex2RgbColor } from '../utils.js';
 import { HEX_COLOR_PATTERN } from '../constants.js';
 
-const DEFAULT_LINE_COLOR = '#000000';
+const DEFAULT_LINE_COLOR = '#ff000000';
 
 interface LineSchema extends Schema {
   color: string;
