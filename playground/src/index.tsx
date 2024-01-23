@@ -12,7 +12,7 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Navigation />
+      {/* <Navigation /> */}
       <Routes>
         <Route path="/" element={<Designer />}></Route>
         <Route path="/form-viewer" element={<FormAndViewer />}></Route>

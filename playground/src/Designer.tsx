@@ -114,9 +114,9 @@ function App() {
           marginRight: 120,
         }}
       >
-        <strong>Designer</strong>
+        {/* <strong>Designer</strong> */}
 
-        <span style={{ margin: '0 1rem' }}>:</span>
+        {/* <span style={{ margin: '0 1rem' }}>:</span>
         <select
           onChange={(e) => {
             setLang(e.target.value as Lang);
@@ -133,13 +133,14 @@ function App() {
           <option value="pl">Polish</option>
           <option value="it">Italian</option>
           <option value="de">German</option>
-        </select>
+        </select> */}
 
         {/* PDF INPUT */}
-        <span style={{ margin: '0 1rem' }}>/</span>
+        <span style={{ margin: '0 1rem' }}></span>
         <label style={{ width: 180 }}>
           Change BasePDF
-          <input type="file" accept="application/pdf" onChange={onChangeBasePDF} />
+          <input type="file"  accept="application/pdf" onChange={onChangeBasePDF} />
+          {/* <input type="file" multiple accept="application/pdf"  /> */}
         </label>
 
         <span style={{ margin: '0 1rem' }}>/</span>
@@ -166,7 +167,7 @@ function App() {
 
         {/* Generate CSV */}
         <span style={{ margin: '0 1rem' }}>/</span>
-        <button onClick={() => generatePDF(designer.current)}>Generate PDF</button>
+        <button onClick={() => generatePDF(designer.current)}>Generate CSV</button>
 
 
       </header>
