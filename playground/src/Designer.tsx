@@ -15,6 +15,7 @@ import {
   downloadCsvFileFromBlob
 } from './helper';
 
+import './css/button.css'; // Add the missing import statement for the CSS file.
 import axios from 'axios';
 
 const headerHeight = 65;
@@ -74,6 +75,7 @@ function App() {
       });
     }
   };
+
   const onChangeMultiplePDFs = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       readMultipleFiles(e.target.files).then((basePdfs) => {
@@ -127,6 +129,13 @@ function App() {
 	// 		});
 	// }, []);
 
+
+  const onViewResult = () => {
+
+  }
+
+
+
   const onDownloadTemplate = () => {
     if (designer.current) {
       // console.log(designer.current.getTemplate())
@@ -166,11 +175,13 @@ function App() {
     <div>
       <header
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginRight: 120,
-        }}
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        padding: '10px 0',
+        backgroundColor: '#f5f5f5',
+        borderBottom: '1px solid #ddd'
+      }}
       >
         {/* <strong>Designer</strong> */}
 
@@ -194,7 +205,7 @@ function App() {
         </select> */}
 
         {/* PDF INPUT */}
-        <button onClick={() => {
+        <button className="button-16" role="button" onClick={() => {
           const input = document.createElement('input');
           input.type = 'file';
           input.accept = 'application/pdf';
@@ -214,8 +225,8 @@ function App() {
           {/* <input type="file" multiple accept="application/pdf"  /> */}
         {/* </label> */} 
 
-        <span style={{ margin: '0 1rem' }}>/</span>
-        <button onClick={() => {
+        {/* <span style={{ margin: '0 1rem' }}>/</span> */}
+        <button className="button-16" role="button" onClick={() => {
           const input = document.createElement('input');
           input.type = 'file';
           input.accept = 'application/json';
@@ -236,23 +247,23 @@ function App() {
         </label> */}
 
         {/* Download Template */}
-        <span style={{ margin: '0 1rem' }}>/</span>
-        <button onClick={onDownloadTemplate}>Download Template</button>
+        {/* <span style={{ margin: '0 1rem' }}>/</span> */}
+        <button className="button-16" role="button" onClick={onDownloadTemplate}>Download Template</button>
 
         {/* Same Template */}
-        <span style={{ margin: '0 1rem' }}>/</span>
-        <button onClick={() => onSaveTemplate()}>Save Template</button>
+        {/* <span style={{ margin: '0 1rem' }}>/</span> */}
+        <button className="button-16" role="button" onClick={() => onSaveTemplate()}>Save Template</button>
 
         {/* Reset Template */}
-        <span style={{ margin: '0 1rem' }}>/</span>
-        <button onClick={onResetTemplate}>Reset Template</button>
+        {/* <span style={{ margin: '0 1rem' }}>/</span> */}
+        <button className="button-16" role="button" onClick={onResetTemplate}>Reset Template</button>
 
         {/* Generate CSV
         <span style={{ margin: '0 1rem' }}>/</span>
         <button onClick={() => generatePDF(designer.current)}>Generate CSV</button> */}
 
         {/* Upload Multiple PDFs */}
-        <button onClick={() => {
+        <button className="button-16" role="button" onClick={() => {
           const input = document.createElement('input');
           input.type = 'file';
           input.accept = 'application/pdf';
@@ -261,6 +272,10 @@ function App() {
           input.click();
         }}>
           Upload Multiple PDFs
+        </button>
+
+        <button className="button-16" role="button" onClick={() => {
+        }}> View Result
         </button>
       </header>
       <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }} />
