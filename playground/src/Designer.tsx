@@ -194,22 +194,46 @@ function App() {
         </select> */}
 
         {/* PDF INPUT */}
-        <span style={{ margin: '0 1rem' }}></span>
+        <button onClick={() => {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'application/pdf';
+          input.addEventListener('change', (e: unknown) => {
+            onChangeBasePDF(e as React.ChangeEvent<HTMLInputElement>)
+          })
+          input.click();
+        }}>
+          Upload PDF
+        </button>
+
+        {/* backup */}
+        {/* <span style={{ margin: '0 1rem' }}></span>
         <label style={{ width: 180 }}>
           Change BasePDF
           <input type="file" accept="application/pdf" onChange={onChangeBasePDF} />
           {/* <input type="file" multiple accept="application/pdf"  /> */}
-        </label>
+        {/* </label> */} 
 
         <span style={{ margin: '0 1rem' }}>/</span>
-        <label style={{ width: 180 }}>
+        <button onClick={() => {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'application/json';
+          input.addEventListener('change', (e: unknown) => handleLoadTemplate(e as React.ChangeEvent<HTMLInputElement>, designer.current));
+          input.click();
+        }}>
+          Load Template
+        </button>
+
+        {/* backup */}
+        {/* <label style={{ width: 180 }}>
           Load Template
           <input
             type="file"
             accept="application/json"
             onChange={(e) => handleLoadTemplate(e, designer.current)}
           />
-        </label>
+        </label> */}
 
         {/* Download Template */}
         <span style={{ margin: '0 1rem' }}>/</span>
@@ -228,12 +252,16 @@ function App() {
         <button onClick={() => generatePDF(designer.current)}>Generate CSV</button> */}
 
         {/* Upload Multiple PDFs */}
-        <span style={{ margin: '0 1rem' }}>/</span>
-        <label>
+        <button onClick={() => {
+          const input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'application/pdf';
+          input.multiple = true;
+          input.addEventListener('change', (e: unknown) => onChangeMultiplePDFs(e as React.ChangeEvent<HTMLInputElement>));
+          input.click();
+        }}>
           Upload Multiple PDFs
-          <input type="file" accept="application/pdf" onChange={onChangeMultiplePDFs} multiple />
-        </label>
-
+        </button>
       </header>
       <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }} />
     </div>
