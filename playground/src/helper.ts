@@ -59,6 +59,26 @@ export const readFile = (file: File | null, type: 'text' | 'dataURL' | 'arrayBuf
   });
 };
 
+export const readMultipleFiles = (files: FileList | null) => {
+  const promises = Array.from(files || []).map((file) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          resolve(event.target.result as string);
+        } else {
+          reject(new Error('File could not be read'));
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    })
+  );
+  return Promise.all(promises);
+};
+
+
+
 export const cloneDeep = (obj: any) => JSON.parse(JSON.stringify(obj));
 
 const getTemplateFromJsonFile = (file: File) => {
@@ -75,6 +95,7 @@ const getTemplateFromJsonFile = (file: File) => {
 
 export const downloadJsonFile = (json: any, title: string) => {
   if (typeof window !== 'undefined') {
+    // console.log(json)
     const blob = new Blob([JSON.stringify(json)], {
       type: 'application/json',
     });
@@ -87,6 +108,30 @@ export const downloadJsonFile = (json: any, title: string) => {
   }
 };
 
+
+// export const downloadCsvFile = (csv: string, title: string) => {
+//   if (typeof window !== 'undefined') {
+//     const blob = new Blob([csv], {
+//       type: 'text/csv',
+//     });
+//     const url = URL.createObjectURL(blob);
+//     const link = document.createElement('a');
+//     link.href = url;
+//     link.download = `${title}.csv`;
+//     link.click();
+//     URL.revokeObjectURL(url);
+//   }
+// };
+export const downloadCsvFileFromBlob = (blob: Blob, title: string) => {
+  if (typeof window !== 'undefined') {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${title}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+};
 export const handleLoadTemplate = (
   e: React.ChangeEvent<HTMLInputElement>,
   currentRef: Designer | Form | Viewer | null
