@@ -15,7 +15,7 @@ import {
   downloadCsvFileFromBlob,
 } from './helper';
 
-import Papa from 'papaparse'
+import Papa from 'papaparse';
 import { useNavigate } from 'react-router-dom';
 import './css/button.css'; // Add the missing import statement for the CSS file.
 import axios from 'axios';
@@ -122,7 +122,6 @@ function App() {
     axios
       .post('http://localhost:8000/api/v1/general/get-csv/', dataToSend)
       .then((response) => {
-
         // download path
         // console.log(response);
         // const csvData = new Blob([response.data], { type: 'text/csv' });
@@ -131,21 +130,31 @@ function App() {
         // naviagge path
         // console.log(response);
         // console.log(response.data);
+        // Papa.parse(response.data, {
+        //   header: true,
+        //   complete: function (results) {
+        //     // console.log(results);
+        //     const data = results.data.filter(row => Object.values(row as object).some(value => value));
+        //     navigate('/get-csv', { state: { csvData: data } });
+        //   },
+        // })
         Papa.parse(response.data, {
           header: true,
           complete: function (results) {
-            // console.log(results);
-            const data = results.data.filter(row => Object.values(row as object).some(value => value));
-            navigate('/get-csv', { state: { csvData: data } });
+            const data = results.data.filter((row) =>
+              Object.values(row as object).some((value) => value)
+            );
+            const csvString = Papa.unparse(data);
+            const url = `/get-csv?data=${encodeURIComponent(csvString)}`;
+            window.open(url, '_blank');
           },
-        })
-        // navigate('/get-csv', { state: { csvData: response.data } });
+        });
+        // new tab
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
 
   const onDownloadTemplate = () => {
     if (designer.current) {
