@@ -1,5 +1,9 @@
 import { useRef, useState } from 'react';
-import { Template, checkTemplate, Lang } from '@pdfme/common';
+import { 
+  Template, 
+  checkTemplate, 
+  Lang 
+} from '@pdfme/common';
 import { Designer } from '@pdfme/ui';
 import {
   getFontsData,
@@ -8,13 +12,14 @@ import {
   cloneDeep,
   getPlugins,
   handleLoadTemplate,
-  generatePDF,
+  // generatePDF,
   downloadJsonFile,
   readMultipleFiles,
   // downloadCsvFile
   downloadCsvFileFromBlob
 } from './helper';
 
+// import {useHistory} from 'react-router-dom';
 import './css/button.css'; // Add the missing import statement for the CSS file.
 import axios from 'axios';
 
@@ -62,6 +67,7 @@ function App() {
     });
   };
 
+
   const onChangeBasePDF = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
       readFile(e.target.files[0], 'dataURL').then(async (basePdf) => {
@@ -76,10 +82,37 @@ function App() {
     }
   };
 
+
+  const [basePdfs, setBasePdfs] = useState<string[]>([]); // Specify the type of basePdfs as an array of strings
   const onChangeMultiplePDFs = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files) {
-      readMultipleFiles(e.target.files).then((basePdfs) => {
-      // Convert array of base64 strings to JSON
+      readMultipleFiles(e.target.files).then((basePdfs: string[]) => { // Specify the type of basePdfs in the promise
+        setBasePdfs(basePdfs);
+      // // Convert array of base64 strings to JSON
+      // const basePdfsJson = JSON.stringify(basePdfs);
+      // const schemas = designer.current?.getTemplate().schemas;
+      // const schemasJson = JSON.stringify(schemas);
+      // const dataToSend = {
+      //   pdfs : basePdfsJson,
+      //   schemas : schemasJson,
+      // }
+      // console.log(dataToSend)
+      // axios
+      //   .post("http://localhost:8000/api/v1/general/get-csv/", dataToSend)
+      //   .then((response) => {
+      //     // console.log(response);
+      //     const csvData = new Blob([response.data], { type: 'text/csv' });
+      //     downloadCsvFileFromBlob(csvData, 'downloadedFile');
+      //   })
+      //   .catch(error => {
+      //     console.log(error)
+      //   })
+      //   // console.log(dataToSend)
+        })
+    }
+  };
+
+  const onViewResult = () => {
       const basePdfsJson = JSON.stringify(basePdfs);
       const schemas = designer.current?.getTemplate().schemas;
       const schemasJson = JSON.stringify(schemas);
@@ -92,48 +125,13 @@ function App() {
         .post("http://localhost:8000/api/v1/general/get-csv/", dataToSend)
         .then((response) => {
           // console.log(response);
-          // setMessage(response.data);
-          // const csvData = new Blob([response.data], { type: 'text/csv' });
-          // const csvDataUrl = URL.createObjectURL(csvData);
-          // downloadCsvFile(csvDataUrl, 'downloadedFile');
           const csvData = new Blob([response.data], { type: 'text/csv' });
           downloadCsvFileFromBlob(csvData, 'downloadedFile');
         })
         .catch(error => {
           console.log(error)
         })
-        // console.log(dataToSend)
-        })
-    }
-  };
-
-    // fetch('', {
-    //   method: 'POST',
-    //     headers:{
-    //     'Content-Type': 'application/json',
-    //   },
-    //     body: JSON.stringify(dataToSend),
-    //   })
-    //   .then(respone => respone.json())
-    //   .then(data => console.log(data))
-    //   .catch(error => console.log(error));
-	// useEffect(() => {
-	// 	axios
-	// 		.get("http://localhost:8000/general/api/v1/hello-world/")
-	// 		.then((response) => {
-	// 			console.log(response);
-	// 			setMessage(response.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.log(error);
-	// 		});
-	// }, []);
-
-
-  const onViewResult = () => {
-
   }
-
 
 
   const onDownloadTemplate = () => {
@@ -274,8 +272,7 @@ function App() {
           Upload Multiple PDFs
         </button>
 
-        <button className="button-16" role="button" onClick={() => {
-        }}> View Result
+        <button className="button-16" role="button" onClick={(onViewResult)}> View Result
         </button>
       </header>
       <div ref={designerRef} style={{ width: '100%', height: `calc(100vh - ${headerHeight}px)` }} />
