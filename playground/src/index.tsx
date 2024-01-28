@@ -5,6 +5,7 @@ import "./index.css";
 import Designer from "./Designer";
 import FormAndViewer from "./FormAndViewer";
 import Navigation from "./Navigation";
+import CsvPage from "./CsvPage";
 
 
 const container = document.getElementById('root')!;
@@ -15,7 +16,8 @@ root.render(
       {/* <Navigation /> */}
       <Routes>
         <Route path="/" element={<Designer />}></Route>
-        <Route path="/form-viewer" element={<FormAndViewer />}></Route>
+        <Route path="/get-csv" element={<CsvPage />}></Route>
+        {/* <Route path="/form-viewer" element={<FormAndViewer />}></Route> */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>);
